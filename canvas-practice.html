@@ -1,0 +1,521 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Вход</title>
+    <style>
+        #c1,
+        #background,
+        #trees,
+        #cars,
+        #highlight {
+            width: 1800px;
+            height: 800px;
+            border: 3px solid black;
+            margin: 40px;
+            position: absolute;
+        }
+
+        #c1 {
+            z-index: 1;
+        }
+
+        #background {
+            z-index: 0;
+        }
+
+        #trees {
+            z-index: 4;
+        }
+
+        #cars {
+            z-index: 3;
+        }
+
+        #highlight {
+            z-index: 5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="c1" width="1800" height="800"></canvas>
+    <canvas id="background" width="1800" height="800"></canvas>
+    <canvas id="trees" width="1800" height="800"></canvas>
+    <canvas id="cars" width="1800" height="800"></canvas>
+    <canvas id="highlight" width="1800" height="800"></canvas>
+
+    <script>
+        var canvas = document.getElementById('c1');
+        var ctx = canvas.getContext('2d')
+        var canvasBackground = document.getElementById('background');
+        var ctxBackground = canvasBackground.getContext('2d')
+        var canvasTrees = document.getElementById('trees');
+        var ctxTrees = canvasTrees.getContext('2d');
+        var canvasCars = document.getElementById('cars');
+        var ctxCars = canvasCars.getContext('2d')
+        var canvasHighlight = document.getElementById('highlight');
+        var ctxHighlight = canvasHighlight.getContext('2d')
+        var bottom = canvas.height - 10;
+        var width = canvas.width;
+        var height = canvas.height;
+
+        //задний фон
+        var img = new Image(); // Создаём новый объект Image
+        img.onload = drawImageActualSizes;
+        img.src = "abstract-1780277_960_720.png";
+
+        function drawImageActualSizes() {
+            // i = 0
+            ctxBackground.drawImage(this, 0, 0, width, bottom + 1);
+        }
+
+        //луна
+        /*   var imga = new Image(); // Создаём новый объект Image
+           imga.onload = drawImageActualSiz;
+           imga.src = "moon_PNG20.png";
+
+           function drawImageActualSiz() {
+               ctxBackground.globalAlpha = 0.55;
+               ctxBackground.drawImage(this, 10, 10, 57, 57);
+           } */
+
+        //самолет
+        /*    var imgaa = new Image(); // Создаём новый объект Image
+            imgaa.onload = drawImageActualSizz;
+            imgaa.src = "plane_PNG5257.png";
+
+            var xz = 640;
+            var yz = 370;
+
+            function drawImageActualSizz() {
+                ctxTrees.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
+                //  x = 610
+                ctxTrees.drawImage(imgaa, xz, yz, 17, 17); // draw image at current position
+                xz += 0.7;
+                yz -= 0.5;
+
+                if (yz < 0) {
+                    xz = 640
+                    yz = 370
+                }
+                requestAnimationFrame(drawImageActualSizz) // loop
+            } */
+
+        //деревья
+        /*    for (i = 0; i < 162; i += 2) {
+                var imgs = new Image(); // Создаём новый объект Image
+                imgs.onload = drawImageActualSize;
+                imgs.src = "4-tree-png-image-download-picture-thumb.png";
+                //  imgs.left - 10;
+            }
+
+            function drawImageActualSize() {
+                // i = 0
+                ctxTrees.drawImage(this, -17 + i, 760, 22, 33);
+                i += 23
+            } */
+
+        //огонек
+        var imgTags = new Image();
+        imgTags.onload = animatessss;
+        imgTags.src = "light_PNG14437.png"; // load image
+        function animatessss() {
+            ctxHighlight.clearRect(50, 50, 111, 111); // clear canvas
+            ctxHighlight.drawImage(imgTags, 383, 332, 35, 35); // draw image at current position
+        }
+        var ji = 0;
+
+        function sd() {
+            if (ji < 10) {
+                ji++;
+                document.getElementById('highlight').style.opacity = 0 + '.' + ji
+                setTimeout(arguments.callee, 100);
+            } else {
+                ji = 0
+                sd();
+            }
+        }
+        sd();
+
+
+
+
+        // автомобиль
+        var imgTag = new Image();
+        var x = width;
+        var h = width;
+        imgTag.onload = animatesss;
+        imgTag.src = "0_6c77e_c1ddf81c_orig.png"; // load image
+
+        function animatesss() {
+            ctxCars.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
+            //  x = 610
+            ctxCars.drawImage(imgTag, x, height - 23, 35, 18); // draw image at current position
+            ctxCars.drawImage(imgTag, h + 80, height - 23, 35, 18); // draw image at current position
+            x -= 2.7;
+            h -= 3;
+            if (x < 0 - 651) {
+                x = canvas.width
+            }
+            if (h < 0 - 651) {
+                h = canvas.width
+            }
+            if (x > 0 - 651) {
+                requestAnimationFrame(animatesss) // loop
+            }
+        }
+
+
+        //мигающие окна, animation
+        var currentPos = 210;
+        var randNumber = ['white', 'gray']
+
+        /*    function animate() {
+                currentPos += 5;
+                if (currentPos >= 210) {
+                    function getRandom(min, max) {
+                        return Math.random() * (max - min) + min;
+                    }
+                    number = getRandom(0, randNumber.length);
+                    currentPos = 0;
+                    // console.log(randNumber[parseInt(number)])
+                }
+                requestAnimationFrame(animate);
+            }
+            animate(); */
+
+        //первое здание
+        ctx.fillStyle = 'gray'; // меняем цвет клеток
+        ctx.strokeStyle = 'black'; // меняем цвет рамки
+        ctx.lineWidth = 3; // ширина передней обводки
+        ctx.strokeRect(0, bottom - 314, 166, 0); // обводка
+        ctx.fillRect(0, bottom - 314, 173, 315); //передний фон
+
+        //окна
+        function animate() {
+            currentPos += 1;
+
+            function getRandom(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+            if (currentPos >= 210) {
+                number = getRandom(0, randNumber.length);
+                currentPos = 0;
+
+                console.log(randNumber[parseInt(number)])
+                for (i = 0; i < 20; i += 2)
+                    for (j = 0; j < 45; j += 2) {
+                        ctx.lineWidth = 2;
+                        ctx.strokeStyle = 'black'; // меняем цвет рамки
+                        //подсветка
+                        if (i === 10 && j === 26 || i === 8 && j === 10 || i === 22 && j === 42 || i === 2 && j ===
+                            4 ||
+                            i === 12 && j === 14) {
+                            ctx.strokeStyle = randNumber[parseInt(number)];
+                            ctx.lineWidth = 5;
+                            ctx.strokeRect(2 + (i + 1.5) * 5.2, bottom - 308 + (j + 1) * 6.5, 1.2, 2.5)
+                            ctx.strokeStyle = 'black';
+                            ctx.lineWidth = 2;
+                        }
+                        ctx.strokeRect(0 + (i + 1.5) * 5.2, bottom - 310 + (j + 1) * 6.5, 4.5, 6.5);
+                    }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        //третье здание
+        ctx.fillStyle = 'gray'; // меняем цвет клеток
+        ctx.strokeStyle = 'black'; // меняем цвет рамки
+        ctx.lineWidth = 2; // ширина передней обводки
+        ctx.strokeRect(350, bottom - 204, 131, 205); // обводка
+        ctx.fillRect(350, bottom - 204, 131, 205); //передний фон
+
+        //третье здание 2 блок
+        ctx.fillStyle = 'gray'; // меняем цвет клеток
+        ctx.strokeStyle = 'black'; // меняем цвет рамки
+        ctx.lineWidth = 2; // ширина передней обводки
+        ctx.strokeRect(350, bottom - 330, 105, 124); // обводка
+        ctx.fillRect(350, bottom - 330, 105, 125); //передний фон
+
+        //третье здание 3 блок
+        ctx.fillStyle = 'gray'; // меняем цвет клеток
+        ctx.strokeStyle = 'black'; // меняем цвет рамки
+        ctx.lineWidth = 2; // ширина передней обводки
+        ctx.strokeRect(370, bottom - 396, 55, 64); // обводка
+        ctx.fillRect(370, bottom - 396, 55, 65); //передний фон
+
+        //третье здание 4 блок
+        ctx.beginPath();
+        ctx.fillStyle = 'gray';
+        ctx.moveTo(370, bottom - 400); // первая внешняя точка
+        ctx.lineTo(370 + 55, bottom - 400); //вторая внешняя точка
+        ctx.lineTo(290 + 110, 370); //третья внешняя точка
+        ctx.lineTo(370, bottom - 400); //вторая внешняя точка
+        ctx.fill();
+
+        //третье здание шпиль
+        ctx.beginPath();
+        ctx.fillStyle = 'gray';
+        ctx.moveTo(370, bottom - 400); // первая внешняя точка
+        ctx.lineTo(350 + 55, bottom - 400); //вторая внешняя точка
+        ctx.lineTo(290 + 110, 340); //третья внешняя точка
+        ctx.lineTo(395, bottom - 400); //вторая внешняя точка
+        ctx.fill();
+
+
+
+        //второе здание
+
+        ctx.lineWidth = 2; // ширина передней обводки
+        ctx.strokeStyle = 'black'; // меняем цвет рамки
+        ctx.strokeRect(115, bottom - 365, 166, 366);
+        ctx.strokeRect(118, bottom - 365, 160, 360);
+        ctx.fillStyle = 'gray'; // меняем цвет клеток
+        ctx.fillRect(115, bottom - 365, 173, 365); //передний фон
+
+        // нижняя часть здания
+        ctx.fillStyle = 'black'; // меняем цвет клеток
+        ctx.fillRect(115, bottom - 24, 173, 1); //передний фон
+        ctx.fillStyle = 'black'; // меняем цвет клеток
+        ctx.fillRect(115, bottom - 20, 173, 1); //передний фон
+
+
+        //выступ на крыше
+        ctx.fillStyle = 'gray'; // меняем цвет клеток
+        ctx.fillRect(135, bottom - 374, 43, 8); //передний фон
+        //окна
+        for (i = 0; i < 25; i += 2)
+            for (j = 0; j < 44; j += 2) {
+                ctx.lineWidth = 2;
+                // подсветка
+                if (i === 22 && j === 42 || i === 2 && j === 4 || i === 12 && j === 14) {
+                    ctx.lineWidth = 5;
+
+                    ctx.strokeStyle = 'white';
+
+                    ctx.strokeRect(123 + (i + 1.5) * 5.5, bottom - 358 + (j + 1) * 7.5, 3.5, 3.5)
+                    ctx.strokeStyle = 'black'; // меняем цвет рамки
+                    ctx.lineWidth = 2;
+                }
+                ctx.strokeRect(120 + (i + 1.5) * 5.5, bottom - 360 + (j + 1) * 7.5, 7.5, 7.5);
+            }
+
+        ctx.beginPath();
+        ctx.strokeStyle = 'black';
+        // ctx.strokeStyle = "blue";
+        ctx.moveTo(282, 425); //начало пера
+        ctx.lineTo(355, 450); //правый верхний угол
+        ctx.lineTo(355, 790); //правый нижний угол
+        ctx.lineTo(282, 790); //левый нижний угол
+        //  ctx.lineWidth = "5";
+        //  ctx.lineCap = "butt";
+        ctx.fillStyle = 'gray';
+        ctx.closePath();
+        ctx.stroke();
+        ctx.fill();
+        for (i = 0; i < 21; i += 2)
+            for (j = 0; j < 44; j += 2) {
+                ctx.lineWidth = 1;
+                //  ctx.strokeStyle = 'black'; // меняем цвет рамки
+                ctx.strokeRect(284 + (i + 1.5) * 2.9, bottom + (i - 360) + (j + 1) * 7.5, 2.5, 7.5);
+            }
+
+        //тройной небосреб за четвертым зданием
+        //1        
+        ctx.lineWidth = 2; // ширина передней обводки
+        ctx.strokeStyle = 'black'; // меняем цвет рамки
+        ctx.strokeRect(755, bottom - 435, 56, 336);
+        ctx.strokeRect(758, bottom - 435, 50, 330);
+        ctx.fillStyle = 'gray'; // меняем цвет фона
+        ctx.fillRect(755, bottom - 435, 56, 335); //передний фон
+        for (i = 0; i < 410; i += 6) {
+            ctx.fillStyle = 'black'; // меняем цвет фона
+            ctx.fillRect(755, bottom - 431 + i, 56, 4); //передний фон
+        }
+        //2
+        ctx.lineWidth = 2; // ширина передней обводки
+        ctx.strokeStyle = 'black'; // меняем цвет рамки
+        ctx.strokeRect(825, bottom - 465, 56, 465);
+        ctx.strokeRect(828, bottom - 465, 50, 465);
+        ctx.fillStyle = 'gray'; // меняем цвет фона
+        ctx.fillRect(825, bottom - 465, 56, 465); //передний фон
+        for (i = 0; i < 450; i += 6) {
+            ctx.fillStyle = 'black'; // меняем цвет фона
+            ctx.fillRect(825, bottom - 461 + i, 56, 4); //передний фон
+        }
+        //3
+        ctx.lineWidth = 2; // ширина передней обводки
+        ctx.strokeStyle = 'black'; // меняем цвет рамки
+        ctx.strokeRect(897, bottom - 495, 56, 495);
+        ctx.strokeRect(898, bottom - 495, 50, 495);
+        ctx.fillStyle = 'gray'; // меняем цвет фона
+        ctx.fillRect(897, bottom - 495, 56, 495); //передний фон
+        for (i = 0; i < 480; i += 6) {
+            ctx.fillStyle = 'black'; // меняем цвет фона
+            ctx.fillRect(897, bottom - 491 + i, 56, 4); //передний фон
+        }
+
+        //четвертое здание
+        ctx.lineWidth = 2; // ширина передней обводки
+        ctx.strokeStyle = 'black'; // меняем цвет рамки
+        ctx.strokeRect(715, bottom - 335, 146, 336);
+        ctx.strokeRect(718, bottom - 335, 140, 330);
+        ctx.fillStyle = 'gray'; // меняем цвет фона
+        ctx.fillRect(715, bottom - 335, 146, 335); //передний фон
+
+        //боковая часть
+        ctx.beginPath();
+        ctx.strokeStyle = 'black';
+        // ctx.strokeStyle = "blue";
+        ctx.moveTo(643, 479); //начало пера
+        ctx.lineTo(714, 455); //правый верхний угол
+        ctx.lineTo(714, 790); //правый нижний угол
+        ctx.lineTo(643, 790); //левый нижний угол
+        //  ctx.lineWidth = "5";
+        //  ctx.lineCap = "butt";
+        ctx.fillStyle = 'gray';
+        ctx.closePath();
+        ctx.stroke();
+        ctx.fill();
+
+        //окна сбоку
+        for (i = 0; i < 21; i += 2)
+            for (j = 0; j < 40; j += 2) {
+                ctx.lineWidth = 1;
+                //  ctx.strokeStyle = 'black'; // меняем цвет рамки
+
+                console.log(i + j)
+                ctx.strokeRect(710 - (i + 1.5) * 2.9, bottom + (i - 330) + (j + 1) * 7.5, 1.7, 7.5);
+            }
+
+        //пятое здание
+        ctx.lineWidth = 2; // ширина передней обводки
+        ctx.strokeStyle = 'black'; // меняем цвет рамки
+        ctx.strokeRect(735, bottom - 55, 156, 56);
+        ctx.strokeRect(738, bottom - 55, 150, 50);
+        ctx.fillStyle = 'gray'; // меняем цвет фона
+        ctx.fillRect(735, bottom - 55, 156, 55); //передний фон
+
+        //комплекс зданий на переднем плане
+        ctx.lineWidth = 2; // ширина передней обводки
+        ctx.strokeStyle = 'black'; // меняем цвет рамки
+        ctx.strokeRect(875, bottom - 85, 56, 86);
+        ctx.strokeRect(878, bottom - 85, 50, 80);
+        ctx.fillStyle = 'gray'; // меняем цвет фона
+        ctx.fillRect(875, bottom - 85, 56, 85); //передний фон
+
+        ctx.lineWidth = 2; // ширина передней обводки
+        ctx.strokeStyle = 'black'; // меняем цвет рамки
+        ctx.strokeRect(932, bottom - 115, 56, 116);
+        ctx.strokeRect(935, bottom - 115, 50, 110);
+        ctx.fillStyle = 'gray'; // меняем цвет фона
+        ctx.fillRect(932, bottom - 115, 56, 115); //передний фон
+
+
+
+        //transAmerica
+        /**  var imgd = new Image(); // Создаём новый объект Image
+          imgd.onload = drawImageActualSizesed;
+          imgd.src =
+              "kisspng-transamerica-pyramid-san-francisco-city-hall-drawi-angle-5abf53ad5a4ef9.8767287415224882373699.png";
+
+          function drawImageActualSizesed() {
+              // i = 0
+              ctxBackground.drawImage(this, 710, 180, 311, 611);
+          } **/
+
+        //фонари
+        for (gi = 0; gi < 152; gi += 2) {
+            var imgss = new Image(); // Создаём новый объект Image
+            imgss.onload = drawImageActualSizessss;
+            imgss.src = "street_light_PNG11544.png";
+            //  imgs.left - 10;
+        }
+
+        function drawImageActualSizessss() {
+            ctxTrees.drawImage(this, -154 + gi, bottom - 20, 10, 20);
+            var imgTagssssss = new Image();
+            imgTagssssss.src = "light_PNG14437.png"; // load image
+            if (gi === 198 || gi === 1578) {
+                gi = gi + 46
+            }
+            //мигание ламп
+            /*     var dd = 0;
+                 if (gi === 1486) {
+
+                     function gs() {
+                         if (dd < 99) {
+                             dd++;
+                             console.log(0 + '.' + dd)
+                             ctxTrees.globalAlpha = 0 + '.' + dd;
+
+                             setTimeout(arguments.callee, 100);
+
+                         } else {
+                             dd = 0
+                             gs();
+                         }
+                     }
+                     gs(); 
+        }*/
+            // console.log(gi)
+            ctxTrees.drawImage(imgTagssssss, -164 + gi, 766, 30, 30); // draw image at current position
+
+            gi += 46
+        }
+
+        //забор
+        ctxTrees.lineWidth = 1; // высота забора
+        ctxTrees.strokeStyle = 'black'; // меняем цвет земли
+        ctxTrees.strokeRect(0, bottom - 2, width, 0);
+
+        //земля
+        ctx.lineWidth = 2; // высота земли
+        ctx.strokeStyle = 'black'; // меняем цвет земли
+        ctx.strokeRect(0, bottom + 1, width, 0); // чертим землю
+
+
+        // oop practice
+        class Task {
+            constructor(title = Task.getDefaultTitle()) {
+                this.title = title
+                this._done = false;
+                Task.count += 1;
+                console.log('Задача')
+            }
+
+            get done() {
+                return this._done === true ? 'Выполнена' : 'Не выполнена';
+            }
+
+            set done(value) {
+                if (value !== undefined && typeof value === 'boolean') {
+                    this._done = value
+                } else {
+                    console.log('Error')
+                }
+            }
+
+            complete() {
+                this.done = true;
+                console.log('Задача ' + this.title + ' выполнена')
+            }
+
+            static getDefaultTitle() {
+                return 'Задача 3';
+            }
+        }
+        Task.count = 0;
+
+        let task = new Task('Убрать комнату');
+        console.log(task.done, task._done);
+        task.complete();
+        console.log(task.done, task._done);
+    </script>
+</body>
+
+</html>
