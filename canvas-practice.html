@@ -479,42 +479,7 @@
         ctx.strokeRect(0, bottom + 1, width, 0); // чертим землю
 
 
-        // oop practice
-        class Task {
-            constructor(title = Task.getDefaultTitle()) {
-                this.title = title
-                this._done = false;
-                Task.count += 1;
-                console.log('Задача')
-            }
 
-            get done() {
-                return this._done === true ? 'Выполнена' : 'Не выполнена';
-            }
-
-            set done(value) {
-                if (value !== undefined && typeof value === 'boolean') {
-                    this._done = value
-                } else {
-                    console.log('Error')
-                }
-            }
-
-            complete() {
-                this.done = true;
-                console.log('Задача ' + this.title + ' выполнена')
-            }
-
-            static getDefaultTitle() {
-                return 'Задача 3';
-            }
-        }
-        Task.count = 0;
-
-        let task = new Task('Убрать комнату');
-        console.log(task.done, task._done);
-        task.complete();
-        console.log(task.done, task._done);
     </script>
 </body>
 
